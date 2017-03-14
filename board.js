@@ -9,7 +9,7 @@ $(document).ready(function() {
     connectWith: ".status"
   }).disableSelection();
   
-
+  /* simple solution, but DOMSubtreeModified deprecated */
   $('#sample').on("DOMSubtreeModified", function(e){
     //storage.saveBoard();
     //console.log("happening");
