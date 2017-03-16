@@ -1,32 +1,37 @@
 "use strict";
 
 $(document).ready(function() {
-  var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-  var storage = new Storage("sample", localStorage);
-  storage.loadBoard();
+  var storage = new Storage("sample");
+    storage.loadBoard();
 
   $( "#new, #inp, #done, #shipped, #other" ).sortable({
     connectWith: ".status"
   }).disableSelection();
   
   /* simple solution, but DOMSubtreeModified deprecated */
-  $('#sample').on("DOMSubtreeModified", function(e){
-    //storage.saveBoard();
-    //console.log("happening");
+  $('.status').on("DOMSubtreeModified", function(e){
+    storage.saveBoard();
+    console.log($(this).attr("id"));
   });  
   
-  
-  var observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      storage.saveBoard();
-      console.log("happening");
-    });
-  });
+  $("#new-label").click(function () {
+    var label = '<div class="label"><input value="title" class="text">' + 
+                '<input value="description" class="text">' + 
+                '<input type="button" value="Delete Label" class="delete"></div>';
+    $("#new").append(label);
 
-  observer.observe(document, {
-    attributes: true,
-    childList: true,
-    subtree: true,
-    characterData: true
+  });
+  
+  $('.status').on('dblclick', '.text', function() {
+    $(this).attr('readonly', false);;
+  });
+  
+  $('.status').on('focusout', '.text', function() {
+    $(this).attr('value', $(this).val());
+    $(this).attr('readonly', true);
+  });
+  
+  $('.status').on('click', '.delete', function(){
+    $(this).parent().remove();
   });
 });

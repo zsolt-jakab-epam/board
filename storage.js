@@ -1,11 +1,10 @@
 "use strict";
 
-var Storage = function (boardKey, storage) {
+var Storage = function () {
     if (!(this instanceof Storage)) {
-        return new Storage(boardKey, storage);
+        return new Storage();
     } 
-    this.storage = storage;
-    this.boardKey = boardKey;
+    this.boardKey = "sample";
     this.boardDivId = '#' + this.boardKey;
 	
 };

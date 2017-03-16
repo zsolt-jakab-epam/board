@@ -12,35 +12,28 @@ var States = function () {
 	return { "new" : {},  "inp" : {}, "done": {}, "shipd": {} };
 };
 
-var DBObject = function (boardKey) {
-    if (!(this instanceof DBObject)) {
-        return new DBObject(board);
-    } 
-    this.storage = localStorage;
-    this.boardKey = boardKey;
-	
+var BoardStorage = function () {
+    if (!(this instanceof BoardStorage)) {
+        return new BoardStorage();
+    } 	
 };
 
-DBObject.prototype.newBoard = function(boardKey) {
-	this.storage.setItem(boardKey, JSON.stringify(new States()));
-};
-
-DBObject.prototype.save = function(labelObject) {
+BoardStorage.prototype.save = function(labelObject) {
     if (!(labelObject instanceof LabelObject)) {
         return false;
     } else {
 		var status = labelObject.status;
 		var id = labelObject.id;
-		var boardObject = JSON.parse(this.storage.getItem(this.boardKey));
+		var boardObject = JSON.parse(localStorage.getItem(this.boardKey));
 
 		boardObject[status][id] = labelObject;
 		
-		this.storage.setItem(boardKey, JSON.stringify(boardObject));	
+		localStorage.setItem(boardKey, JSON.stringify(boardObject));	
 	}
 };
 
-DBObject.prototype.getBoard = function() {
-	return JSON.parse(this.storage.getItem(this.boardKey));
+BoardStorage.prototype.getBoard = function() {
+	return JSON.parse(localStorage.getItem(this.boardKey));
 };
 
 
