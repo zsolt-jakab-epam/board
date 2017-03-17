@@ -1,11 +1,15 @@
 "use strict";
 
-var LabelObject = function (title, description, owner, status, id) {
-	this.title = title;
-	this.description = description;
-	this.owner = owner;
-	this.status = status;
-	this.id = id;
+var Label = function (uiItem) {
+  if (!(this instanceof Label)) {
+      return new Label(uiItem);
+  } 	
+
+	this.title = $(uiItem).children().val();
+	this.description = $(uiItem).children().first().next().attr("value");
+	this.status = $(uiItem).parent().attr("id");
+	this.board = $(uiItem).parent().parent().attr("id");
+  this.index = $(uiItem).index();
 };
 
 var States = function () {

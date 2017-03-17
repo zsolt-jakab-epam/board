@@ -8,10 +8,11 @@ $(document).ready(function() {
     connectWith: ".status"
   }).disableSelection();
   
-  /* simple solution, but DOMSubtreeModified deprecated */
-  $('.status').on("DOMSubtreeModified", function(e){
+  $('.status').on("sortupdate sortcreate", function(event, ui){
     storage.saveBoard();
-    console.log($(this).attr("id"));
+    console.log($(this).attr("id"))
+    console.log(new Label(ui.item));
+
   });  
   
   $("#new-label").click(function () {
@@ -19,19 +20,22 @@ $(document).ready(function() {
                 '<input value="description" class="text">' + 
                 '<input type="button" value="Delete Label" class="delete"></div>';
     $("#new").append(label);
-
+    storage.saveBoard();
   });
   
   $('.status').on('dblclick', '.text', function() {
-    $(this).attr('readonly', false);;
+    $(this).attr('readonly', false);
+    storage.saveBoard();
   });
   
   $('.status').on('focusout', '.text', function() {
     $(this).attr('value', $(this).val());
     $(this).attr('readonly', true);
+    storage.saveBoard();
   });
   
   $('.status').on('click', '.delete', function(){
     $(this).parent().remove();
+    storage.saveBoard();
   });
 });
