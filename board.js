@@ -1,17 +1,17 @@
 "use strict";
 
 $(document).ready(function() {
-  var storage = new Storage("sample");
-    storage.loadBoard();
+  var storage = new BoardStorage();
+  storage.loadBoard();
 
   $( "#new, #inp, #done, #shipped, #other" ).sortable({
     connectWith: ".status"
   }).disableSelection();
   
   $('.status').on("sortupdate sortcreate", function(event, ui){
-    storage.saveBoard();
+    storage.saveStatus($(this));
     console.log($(this).attr("id"))
-    console.log(new Label(ui.item));
+    console.log(JSON.stringify(new Status($(this))));
 
   });  
   
@@ -20,22 +20,23 @@ $(document).ready(function() {
                 '<input value="description" class="text">' + 
                 '<input type="button" value="Delete Label" class="delete"></div>';
     $("#new").append(label);
-    storage.saveBoard();
+    storage.saveStatus($("#new"));
   });
   
   $('.status').on('dblclick', '.text', function() {
     $(this).attr('readonly', false);
-    storage.saveBoard();
+    storage.saveLabel($(this).parent());
   });
   
   $('.status').on('focusout', '.text', function() {
     $(this).attr('value', $(this).val());
     $(this).attr('readonly', true);
-    storage.saveBoard();
+    storage.saveLabel($(this).parent());
   });
   
   $('.status').on('click', '.delete', function(){
+    let status = $(this).parent().parent();
     $(this).parent().remove();
-    storage.saveBoard();
+    storage.saveStatus(status);
   });
 });
