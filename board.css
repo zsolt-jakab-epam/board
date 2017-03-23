@@ -2,9 +2,6 @@ html, body {
 	height: 100%;
 }
 
-input {
-  width: 95%;
-}
 
 #new-label {
   width: 100%;
@@ -24,7 +21,7 @@ input {
 	margin: -300px -300px;
 }
 
-.status, .label {
+.status {
 	#position: relative;
 	background-color: orange;
 	border: 3px solid green;
@@ -34,17 +31,6 @@ input {
   width: 20%;
   height: 100%;
   float: left;
-}
-
-.label { 
-  width: 150px; 
-  height: 150px; 
-  margin: 0.5em; 
-  padding: 0.5em; 
-	background-color: white;
-	color: black;
-	border: 3px solid green;
-	font-weight: bold;
 }
 
 
