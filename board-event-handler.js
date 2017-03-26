@@ -1,7 +1,7 @@
 "use strict";
 
 $(document).ready(function() {
-  var storage = new BoardStorageProxy();
+  var storage = new BoardStorageProxy(new LocalBoardStorage());
   storage.loadBoard();
 
   var removeIntent = false;
@@ -29,6 +29,7 @@ $(document).ready(function() {
 
   $("#new-label").click(function () {
     var label = '<input type="text" placeholder="fill with something ..." class="form-control card">';
+    $(".status").children().focusout();
     $("#new").append(label);
     storage.saveLabel($("#new").children().last());
   });

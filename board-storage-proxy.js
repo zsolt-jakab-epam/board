@@ -1,7 +1,7 @@
 "use strict";
 
 let BoardStorageProxy = function (storageImp) {
-	let storage = storageImp || new BoardStorage();
+	let storage = storageImp;
 
 	let Label = function (jQReference) {
 		this.text = jQReference.val();
@@ -16,7 +16,7 @@ let BoardStorageProxy = function (storageImp) {
 		this.labels = [];
 
 		let labels = this.labels;
-		jQReference.children().not(".ui-sortable-placeholder").each( function (index) {
+		jQReference.children().not(".ui-sortable-placeholder").each( function () {
 			labels.push(new Label($(this))); 
 		});	
 	};  
